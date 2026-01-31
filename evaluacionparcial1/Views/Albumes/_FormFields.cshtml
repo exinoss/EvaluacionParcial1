@@ -1,0 +1,49 @@
+@model evaluacionparcial1.Models.AlbumViewModel
+
+<div class="mb-3">
+    <label asp-for="Album.Titulo" class="form-label"></label>
+    <input asp-for="Album.Titulo" class="form-control" />
+    <span asp-validation-for="Album.Titulo" class="text-danger"></span>
+</div>
+<div class="mb-3">
+    <label asp-for="Album.Genero" class="form-label"></label>
+    <input asp-for="Album.Genero" class="form-control" />
+    <span asp-validation-for="Album.Genero" class="text-danger"></span>
+</div>
+<div class="mb-3">
+    <label asp-for="Album.AnioLanzamiento" class="form-label"></label>
+    <input asp-for="Album.AnioLanzamiento" class="form-control" type="number" min="1900" max="2100" />
+    <span asp-validation-for="Album.AnioLanzamiento" class="text-danger"></span>
+</div>
+<div class="mb-3">
+    <label asp-for="Album.Discografica" class="form-label"></label>
+    <input asp-for="Album.Discografica" class="form-control" />
+    <span asp-validation-for="Album.Discografica" class="text-danger"></span>
+</div>
+<div class="mb-3">
+    <label class="form-label">Artistas</label>
+    @if (Model.ArtistasDisponibles != null && Model.ArtistasDisponibles.Any())
+    {
+        <div class="border rounded p-3">
+            @foreach (var artista in Model.ArtistasDisponibles)
+            {
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" 
+                           name="ArtistasSeleccionados" 
+                           value="@artista.ArtistaId" 
+                           id="artista_@artista.ArtistaId"
+                           @(Model.ArtistasSeleccionados.Contains(artista.ArtistaId) ? "checked" : "") />
+                    <label class="form-check-label" for="artista_@artista.ArtistaId">
+                        @artista.NombreCompleto
+                    </label>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-warning">
+            No hay artistas disponibles. <a asp-controller="Artistas" asp-action="Create">Crear un artista primero</a>.
+        </div>
+    }
+</div>

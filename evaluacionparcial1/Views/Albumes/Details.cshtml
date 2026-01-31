@@ -1,0 +1,49 @@
+@model evaluacionparcial1.Models.Album
+
+@{
+    ViewData["Title"] = "Detalles del Álbum";
+}
+
+<h1>Detalles del Álbum</h1>
+
+<div class="card">
+    <div class="card-header">
+        <h5 class="mb-0">@Model.Titulo</h5>
+    </div>
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Titulo)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Titulo)</dd>
+
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Genero)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Genero)</dd>
+
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.AnioLanzamiento)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.AnioLanzamiento)</dd>
+
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Discografica)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Discografica)</dd>
+        </dl>
+
+        @if (Model.AlbumArtistas != null && Model.AlbumArtistas.Any())
+        {
+            <h5 class="mt-4">Artistas</h5>
+            <ul class="list-group">
+                @foreach (var albumArtista in Model.AlbumArtistas)
+                {
+                    <li class="list-group-item">
+                        <a asp-controller="Artistas" asp-action="Details" asp-route-id="@albumArtista.Artista.ArtistaId">
+                            @albumArtista.Artista.NombreCompleto
+                        </a>
+                        <span class="badge bg-secondary ms-2">@albumArtista.Artista.Nacionalidad</span>
+                    </li>
+                }
+            </ul>
+        }
+    </div>
+</div>
+
+<div class="mt-3">
+    <a asp-action="Edit" asp-route-id="@Model.AlbumId" class="btn btn-warning">Editar</a>
+    <a asp-action="Index" class="btn btn-secondary">Volver</a>
+</div>

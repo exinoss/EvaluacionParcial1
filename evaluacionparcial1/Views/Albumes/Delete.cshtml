@@ -1,0 +1,47 @@
+@model evaluacionparcial1.Models.Album
+
+@{
+    ViewData["Title"] = "Eliminar Álbum";
+}
+
+<h1>Eliminar Álbum</h1>
+
+<div class="alert alert-danger">
+    <h4 class="alert-heading">¿Está seguro de eliminar este álbum?</h4>
+    <p>Esta acción no se puede deshacer.</p>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Titulo)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Titulo)</dd>
+
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Genero)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Genero)</dd>
+
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.AnioLanzamiento)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.AnioLanzamiento)</dd>
+
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Discografica)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Discografica)</dd>
+        </dl>
+
+        @if (Model.AlbumArtistas != null && Model.AlbumArtistas.Any())
+        {
+            <h6 class="mt-3">Artistas asociados:</h6>
+            <ul>
+                @foreach (var albumArtista in Model.AlbumArtistas)
+                {
+                    <li>@albumArtista.Artista.NombreCompleto</li>
+                }
+            </ul>
+        }
+    </div>
+</div>
+
+<form asp-action="Delete" class="mt-3">
+    <input type="hidden" asp-for="AlbumId" />
+    <button type="submit" class="btn btn-danger">Eliminar</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>
